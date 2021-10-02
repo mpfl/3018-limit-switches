@@ -4,18 +4,23 @@ extrusion_width = 20;
 switch_bolt_diameter = 3;
 switch_nut_diameter = 5.5;
 extrusion_bolt_diameter = 5;
-mount_height = 35;
+mount_height = 33;
 mount_width = switch_hole_pitch + switch_nut_diameter;
+rod_bracket_height = 9;
+rod_bracket_width = 12;
 
 $fn = 60;
 
-extrusion_plate();
+translate([mount_width,0,0])
+    extrusion_plate();
 translate([0,0,mount_height-thickness])
     switch_plate();
-translate([-thickness, 0, 0])
-    side_plate();
+translate([-thickness, 0, rod_bracket_height])
+    left_plate();
 translate([mount_width, 0, 0])
-    side_plate();
+    right_plate();
+translate([0,0,rod_bracket_height])
+back_plate();
 
 module extrusion_plate() {
     linear_extrude(thickness)
@@ -43,12 +48,24 @@ module switch_rail() {
                 hull() {
                     translate([0,extrusion_width/2 - switch_bolt_diameter])      
                         circle(d = switch_bolt_diameter + 0.2);
-                    translate([0,-(extrusion_width/2 - switch_bolt_diameter)])      
+                    translate([0,-(extrusion_width/2 - thickness - switch_bolt_diameter)])      
                         circle(d = switch_bolt_diameter + 0.2);
                 }
         }
 }    
 
-module side_plate() {
+module left_plate() {
+    cube([thickness, extrusion_width, mount_height - rod_bracket_height]);
+}
+
+module right_plate() {
     cube([thickness, extrusion_width, mount_height]);
+}
+
+module back_plate() {
+    difference() {
+        cube([mount_width, thickness, mount_height - rod_bracket_height -thickness]);
+        translate([thickness, -thickness/2, thickness])
+            cube([mount_width - thickness * 2, thickness * 2, mount_height - rod_bracket_height - thickness * 3]);
+    }
 }
