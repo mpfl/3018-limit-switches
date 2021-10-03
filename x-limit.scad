@@ -8,7 +8,8 @@ extrusion_trench_width = 8;
 extrusion_guide_height = 2;
 mount_width = 55;
 switch_plug_height = 7.5;
-switch_plug_width =10;
+switch_plug_width = 10;
+switch_rail_length = 15;
 
 $fn = 60;
 
@@ -52,12 +53,12 @@ module switch_plate() {
 module switch_rail() {
     linear_extrude(thickness)
         difference() {
-            square([switch_nut_diameter, extrusion_width]);
-            translate([(switch_nut_diameter)/2, extrusion_width/2])
+            square([switch_nut_diameter, switch_rail_length]);
+            translate([(switch_nut_diameter)/2, switch_rail_length/2])
                 hull() {
-                    translate([0,extrusion_width/2 - switch_bolt_diameter])      
+                    translate([0,switch_rail_length/2 - switch_bolt_diameter])      
                         circle(d = switch_bolt_diameter + 0.2);
-                    translate([0,-(extrusion_width/2 - thickness - switch_bolt_diameter)])      
+                    translate([0,-(switch_rail_length/2 - thickness - switch_bolt_diameter)])      
                         circle(d = switch_bolt_diameter + 0.2);
                 }
         }
