@@ -4,9 +4,9 @@ extrusion_width = 20;
 switch_bolt_diameter = 3;
 switch_nut_diameter = 5.5;
 extrusion_bolt_diameter = 5;
-extrusion_trench_width = 6;
+extrusion_trench_width = 8;
 extrusion_guide_height = 2;
-mount_width = 52;
+mount_width = 55;
 switch_plug_height = 7.5;
 switch_plug_width =10;
 
